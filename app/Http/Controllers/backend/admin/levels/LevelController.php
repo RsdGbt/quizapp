@@ -34,5 +34,21 @@ class LevelController extends Controller
         $level->save();
         return back()->with('success','New Level saved successfully !');
     }
+    public function edit($id){
+        $user = Auth::user();
+        $level = Level::findOrFail($id);
+        $heading = 'Edit Level | '.$level->name;
+        $title = $heading.' - '.$user->first_name.' '.$user->last_name.' - Quiz App';
+        return view('backend.admin.level.edit',compact('title','user','heading','level'));
+    }
+    public function update(Request $request,$id){
+        $this->validate($request,[
+            'name' => 'required|unique:levels,name,'.$id,
+        ]);
+        $level = Level::findOrFail($id);
+        $level->name = $request->name;
+        $level->save();
+        return redirect('admin/levels/list-level')->with('success','Level saved successfully !');
+    }
 
 }

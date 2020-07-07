@@ -15,28 +15,28 @@
                     <table class="table table-bordered table-striped table-vcenter">
                         <thead>
                         <tr>
-                            <th>SN</th>
+                            <th class="text-center">SN</th>
                             <th>Name</th>
-                            <th>Added</th>
-                            <th>Updated</th>
+                            <th class="text-center">Added</th>
+                            <th class="text-center">Updated</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach($levels as $key=>$level)
                                 <tr>
-                                    <td>{{++$key}}</td>
+                                    <td class="text-center">{{++$key}}</td>
                                     <td class="font-w600">
                                         <a href="#">{{$level->name}}</a>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <span class="badge badge-light">{{date('F m, Y',strtotime($level->created_at))}}</span>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <span class="badge badge-light">{{$level->updated_at->diffForHumans()}}</span>
                                     </td>
-                                    <td>
-
+                                    <td class="text-center">
+                                        <a href="{{url()->current().'/'.$level->id.'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -15,36 +15,36 @@
                     <table class="table table-bordered table-striped table-vcenter">
                         <thead>
                         <tr>
-                            <th>SN</th>
+                            <th class="text-center">SN</th>
                             <th>Name</th>
-                            <th>Status</th>
-                            <th>Added</th>
-                            <th>Updated</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Added</th>
+                            <th class="text-center">Updated</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach($categories as $key=>$category)
                                 <tr>
-                                    <td>{{++$key}}</td>
+                                    <td class="text-center">{{++$key}}</td>
                                     <td class="font-w600">
                                         <a href="#">{{$category->name}}</a>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         @if($category->status=='public')
                                             <span class="badge badge-success">Published</span>
                                         @else
                                             <span class="badge badge-warning">Drafted</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <span class="badge badge-light">{{date('F m, Y',strtotime($category->created_at))}}</span>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <span class="badge badge-light">{{$category->updated_at->diffForHumans()}}</span>
                                     </td>
-                                    <td>
-
+                                    <td class="text-center">
+                                        <a href="{{url()->current().'/'.$category->id.'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

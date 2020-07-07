@@ -38,5 +38,23 @@ class CategoryController extends Controller
         $category->save();
         return back()->with('success','Category saved successfully !');
     }
+    public function edit($id){
+        $user = Auth::user();
+        $category = Category::findOrFail($id);
+        $heading = 'Edit Category | '.$category->name;
+        $title = $heading.' - '.$user->first_name.' '.$user->last_name.' - Quiz App';
+        return view('backend.admin.category.edit',compact('title','user','heading','category'));
+    }
+    public function update(Request $request,$id){
+        $this->validate($request,[
+            'name' => 'required|unique:categories,name,'.$id,
+        ]);
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->status = $request->status;
+        $category->save();
+        return redirect('admin/categories/list-category')->with('success','Category saved successfully !');
+    }
 
 }
