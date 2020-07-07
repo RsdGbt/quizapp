@@ -28,6 +28,8 @@ Route::group(['namespace'=>'backend','middleware'=>'auth'],function(){
         Route::group(['prefix'=>'categories','namespace'=>'category'],function (){
            Route::get('','CategoryController@index');
            Route::get('list-category','CategoryController@getList');
+           Route::get('list-category/{id}/edit','CategoryController@edit');
+           Route::post('list-category/{id}/edit','CategoryController@update');
            Route::get('add-category','CategoryController@create');
            Route::post('add-category','CategoryController@store');
         });
@@ -35,6 +37,8 @@ Route::group(['namespace'=>'backend','middleware'=>'auth'],function(){
         Route::group(['prefix'=>'levels','namespace'=>'levels'],function (){
            Route::get('','LevelController@index');
            Route::get('list-level','LevelController@getList');
+           Route::get('list-level/{id}/edit','LevelController@edit');
+           Route::post('list-level/{id}/edit','LevelController@update');
            Route::get('add-level','LevelController@create');
            Route::post('add-level','LevelController@store');
         });

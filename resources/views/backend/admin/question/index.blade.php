@@ -90,9 +90,14 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$question->name}}</td>
                                     <td>
-                                        <a href="{{url('admin/answers/list-answers?question_id='.$question->id)}}" class="badge badge-info"> Insert Options</a><br>
+                                        <a href="{{url('admin/answers/list-answers?question_id='.$question->id)}}" class="border-bottom pb-1 mb-1"><span class="badge badge-info">Insert Option</span></a><br>
                                         @foreach($question->answers as $answer)
-                                            <span class="badg badgelight">{{$answer->name}} :</span> @if($answer->status=='true') <span class="badge badge-success">{{$answer->status}}</span> @else <span class="badge badge-danger">{{$answer->status}}</span> @endif<br>
+                                            @if($answer->status=='true')
+                                                <span class="badge badge-success">{{$answer->name}} : <span class="badge badge-light">{{$answer->status}}</span></span>
+                                            @else
+                                                <span class="badge badge-danger">{{$answer->name}} :</span> <span class="badge badge-light">{{$answer->status}}</span>
+                                            @endif
+                                            <br>
                                         @endforeach
                                     </td>
                                     <td class="text-center">
