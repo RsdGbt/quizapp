@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class MemberController extends Controller
@@ -41,6 +42,12 @@ class MemberController extends Controller
         $user->type = 'member';
         $user->status = '1';
         $user->save();
+        $field = filter_var(request('email'),FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        if (Auth::attempt([$field => request('email'), 'password' => request('password')])) {
+            if (Auth::check()) {
+                return redirect(\request('redirectRoute'))->with('success','You are Logged In !');
+            }
+        }
         return back()->with('success','Congratulations you are registered successfully !');
     }
 }

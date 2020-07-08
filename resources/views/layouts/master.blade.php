@@ -121,4 +121,89 @@
         <!-- END Footer -->
 
     </div>
+    <!-- Login Action Modal -->
+    <div class="modal fade" id="logInAction" tabindex="-1" role="dialog" aria-labelledby="modal-default-popout" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white">Login</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pb-1">
+                    <div class="alert alert-warning alert-dismissable mb-0 p-1" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <p class="mb-0">You have to login first !</p>
+                    </div>
+
+                    <div class="block block-transparent block-rounded w-100 mb-0 overflow-hidden">
+                        <div class="block-content block-content-full bg-white">
+                            <!-- Header -->
+                            <div class="text-center">
+                                <p class="text-uppercase font-w700 font-size-sm text-muted">Sign In</p>
+                            </div>
+                            <!-- END Header -->
+
+                            <!-- Sign In Form -->
+                            <!-- jQuery Validation (.js-validation-signin class is initialized in js/pages/op_auth_signin.min.js which was auto compiled from _es6/pages/op_auth_signin.js) -->
+                            <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                            <form class="js-validation-signin" action="{{url('loginAction')}}" method="POST">{{csrf_field()}}
+                                <input type="hidden" name="redirectRoute" value="{{url()->current()}}">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="login-username" name="email" placeholder="Username">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="login-password" name="password" placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-asterisk"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-sm-flex justify-content-sm-between align-items-sm-center text-center text-sm-left">
+                                    <div class="custom-control custom-checkbox custom-control-primary">
+                                        <input type="checkbox" class="custom-control-input" id="login-remember-me" name="login-remember-me" checked>
+                                        <label class="custom-control-label" for="login-remember-me">Remember Me</label>
+                                    </div>
+                                    <div class="font-w600 font-size-sm py-1">
+                                        <a href="javascript:void(0)">Forgot Password?</a>
+                                    </div>
+                                </div>
+                                <div class="form-group text-center mb-0">
+                                    <button type="submit" class="btn btn-hero-primary">
+                                        <i class="fa fa-fw fa-sign-in-alt mr-1"></i> Sign In
+                                    </button>
+                                </div>
+                            </form>
+                            <hr>
+                            <form action="{{url('register')}}" class="text-center" method="get">
+                                {{csrf_field()}}
+                                <input type="hidden" name="redirectRoute" value="{{url()->current()}}">
+                                New to here? <button type="submit" class="btn badge badge-primary">Register with us</button>
+                            </form>
+
+                            <!-- END Sign In Form -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Action Modal -->
+
 @endsection

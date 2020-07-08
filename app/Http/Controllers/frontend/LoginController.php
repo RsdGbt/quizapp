@@ -31,5 +31,20 @@ class LoginController extends Controller
         }
         return redirect()->back()->withErrors(['email'=>'Invalid Email/Username','password'=>'Wrong Password'])->withInput(request()->only('email'));
     }
+    public function loginAction(){
+
+        $this->validate(request(),[
+            'email'=>'required',
+            'password'=>'required',
+            'redirectRoute' => 'required',
+        ]);
+        $field = filter_var(request('email'),FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        if (Auth::attempt([$field => request('email'), 'password' => request('password')])) {
+            if (Auth::check()) {
+                return redirect(\request('redirectRoute'))->with('success','You are Logged In !');
+            }
+        }
+        return redirect(\request('redirectRoute'))->withErrors(['email'=>'Invalid Email/Username','password'=>'Wrong Password'])->withInput(request()->only('email'));
+    }
 
 }

@@ -16,9 +16,18 @@
                     <div class="row">
                         <div class="col-sm-12 form-group">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 form-group">
                                     <label for="">Category Name <span class="text-danger">*</span></label>
                                     <input type="text" name="name" class="form-control" required placeholder="Type New Category Name">
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label for="">Level <span class="text-danger">*</span></label>
+                                    <select name="level_id[]" multiple id="level_id" class="js-select2 form-control" required>
+                                        <option value="">--Choose--</option>
+                                        @foreach($levels as $level)
+                                            <option value="{{$level->id}}">{{$level->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

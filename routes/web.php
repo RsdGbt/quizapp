@@ -10,6 +10,7 @@ Route::group(['namespace'=>'frontend'],function(){
 Route::group(['middleware'=>'guest'],function(){
     Route::get('login','frontend\\LoginController@getLogin')->name('login');
     Route::post('login','frontend\\LoginController@postLogin');
+    Route::post('loginAction','frontend\\LoginController@loginAction');
     Route::get('register','frontend\\MemberController@create');
     Route::post('register','frontend\\MemberController@store');
 });
@@ -66,4 +67,10 @@ Route::group(['namespace'=>'backend','middleware'=>'auth'],function(){
 
     });
 
+});
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('{slug}','frontend\\GameController@index');
+    Route::get('{slug}/{id}','frontend\\GameController@show');
+    Route::post('{slug}/{id}','frontend\\GameController@store');
 });

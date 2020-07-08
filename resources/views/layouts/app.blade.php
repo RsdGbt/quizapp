@@ -56,7 +56,6 @@
 
 @yield('body')
 
-
 <script src="{{asset('')}}assets/js/dashmix.core.min.js"></script>
 
 <!--
