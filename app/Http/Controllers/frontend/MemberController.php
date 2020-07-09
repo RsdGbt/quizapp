@@ -45,7 +45,12 @@ class MemberController extends Controller
         $field = filter_var(request('email'),FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
         if (Auth::attempt([$field => request('email'), 'password' => request('password')])) {
             if (Auth::check()) {
-                return redirect(\request('redirectRoute'))->with('success','You are Logged In !');
+                if ($request->redirectRoute){
+                    $redirectRoute = $request->redirectRoute;
+                }else{
+                    $redirectRoute = '';
+                }
+                return redirect($redirectRoute)->with('success','You are Logged In !');
             }
         }
         return back()->with('success','Congratulations you are registered successfully !');

@@ -95,6 +95,18 @@ class GameController extends Controller
             return redirect('')->with('error','Quiz available only for users !');
         }
         $answer = Answer::find($request->answer);
+        if ($existAnswer = UserAnswer::where('user_id',$user->id)->where('question_id',$request->question_id)->first()){
+            $existAnswer->answer_id = $answer->id;
+            $existAnswer->status = $answer->status;
+            $existAnswer->save();
+        }else{
+            $userAnswer = new UserAnswer();
+            $userAnswer->user_id = Auth::user()->id;
+            $userAnswer->question_id = $request->question_id;
+            $userAnswer->answer_id = $answer->id;
+            $userAnswer->status = $answer->status;
+            $userAnswer->save();
+        }
         $userAnswer = new UserAnswer();
         $userAnswer->user_id = Auth::user()->id;
         $userAnswer->question_id = $request->question_id;
