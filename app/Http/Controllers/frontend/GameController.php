@@ -107,12 +107,6 @@ class GameController extends Controller
             $userAnswer->status = $answer->status;
             $userAnswer->save();
         }
-        $userAnswer = new UserAnswer();
-        $userAnswer->user_id = Auth::user()->id;
-        $userAnswer->question_id = $request->question_id;
-        $userAnswer->answer_id = $answer->id;
-        $userAnswer->status = $answer->status;
-        $userAnswer->save();
         if ($request->page){
             $pageId = ($request->page)+1;
         }else{
