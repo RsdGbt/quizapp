@@ -20,6 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->enum('status',['public','draft'])->nullable();
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('level_id')->nullable();
+            $table->string('marks')->nullable();
+            $table->string('neg_marks')->nullable();
             $table->timestamps();
         });
     }

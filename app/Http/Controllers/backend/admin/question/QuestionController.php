@@ -54,6 +54,7 @@ class QuestionController extends Controller
              'name' => 'required|unique:questions,name',
             'level_id' => 'required',
             'category_id' => 'required',
+            'marks' => 'required|numeric',
         ]);
         $question = new Question();
         $question->name = $request->name;
@@ -61,6 +62,8 @@ class QuestionController extends Controller
         $question->status = 'public';
         $question->user_id = Auth::user()->id;
         $question->level_id = $request->level_id;
+        $question->marks = $request->marks;
+        $question->neg_marks = $request->neg_marks;
         $question->save();
         if($request->category_id){
             $question->category()->sync($request->category_id);
@@ -82,12 +85,15 @@ class QuestionController extends Controller
             'name' => 'required|unique:questions,name,'.$id,
             'level_id' => 'required',
             'category_id' => 'required',
+            'marks' => 'required|numeric',
         ]);
         $question = Question::findOrFail($id);
         $question->name = $request->name;
         $question->slug = Str::slug($request->name);
         $question->status = $request->status;
         $question->level_id = $request->level_id;
+        $question->marks = $request->marks;
+        $question->neg_marks = $request->neg_marks;
         $question->save();
         if($request->category_id){
             $question->category()->sync($request->category_id);

@@ -39,47 +39,78 @@
                     @endforeach
                 @else
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                        <div class="col-sm-12 mb-3">
+                            <div class="table-responsive mt-3">
+                                <table class="table table-sm table-vcenter table-bordered">
                                     <thead>
-                                        <tr>
-                                            <th colspan="3" class="text-center">Results</th>
-                                        </tr>
-                                        <tr>
-                                            <th style="width: 7%;">SN</th>
-                                            <th style="width: 43%;">Questions</th>
-                                            <th style="width: 50%;">Option</th>
-                                        </tr>
+                                    <tr>
+                                        <th colspan="3">View Submitted Record</th>
+                                    </tr>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th class="text-left">Question</th>
+                                        <th class="text-left">Your Answer</th>
+                                        <th class="text-left">Status</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($levelQustions as $aKey=>$levelQustion)
+                                    @php
+                                        $marks = 0;
+                                        $negMarks = 0;
+                                    @endphp
+                                    @foreach($levelQustions as $key=>$levelQustion)
                                         <tr>
-                                            <td>{{++$aKey}}</td>
-                                            <td>{{$levelQustion->name}}</td>
-                                            <td>
-                                                <div class="row">
-                                                    @foreach($levelQustion->answers as $answer)
-                                                        @php
-                                                            $checkAnswers = \App\UserAnswer::where('user_id',$user->id)->where('question_id',$levelQustion->id)->where('answer_id',$answer->id)->orderBy('id','DESC')->first();
-                                                        @endphp
-                                                        <div class="col-sm-6 col-md-6">
-                                                            <span class="badge @if($answer->status=='true') badge-success @else badge-danger @endif">{{$answer->name}}</span>
-                                                            @if($checkAnswers)
-                                                                @if($checkAnswers->status=='true' && $answer->status=='true')
-                                                                <span class="badge badge-success" title="Right Answer"><i class="fa fa-check-circle"></i></span>
-                                                                @else
-                                                                    <span class="badge badge-danger" title="Wrong Answer"><i class="fa fa-times-circle"></i></span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    @endforeach
-                                                </div>
+                                            <td>{{++$key}}</td>
+                                            <td class="text-left">
+                                                {{$levelQustion->name}}
+                                            </td>
+                                            <td class="text-left">
+                                                    @php
+                                                        $questionOptions = \App\Answer::where('question_id',$levelQustion->id)->get();
+                                                    @endphp
+                                                @foreach($questionOptions as $questionOption)
+                                                    @if($userAnswer = \App\UserAnswer::where('user_id',$user->id)->where('answer_id',$questionOption->id)->first())
+                                                        {{$questionOption->name}}
+                                                        @if($questionOption->status=='true')
+                                                            @php
+                                                                $marks += $levelQustion->marks;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $negMarks += $levelQustion->neg_marks;
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="text-left">
+                                                @php
+                                                    $questionOptions = \App\Answer::where('question_id',$levelQustion->id)->get();
+                                                @endphp
+                                                @foreach($questionOptions as $questionOption)
+                                                    @if($userAnswer = \App\UserAnswer::where('user_id',$user->id)->where('answer_id',$questionOption->id)->first())
+                                                        @if($questionOption->status=='true')
+                                                            <span class="badge badge-light badge-pill">Wrong Answer</span>
+                                                            <span class="badge badge-success badge-pill">+{{$levelQustion->marks}} Point Added</span>
+                                                        @else
+                                                            <span class="badge badge-light badge-pill">Wrong Answer</span>
+                                                            <span class="badge badge-danger badge-pill">-{{$levelQustion->neg_marks}} Point Deducted</span>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+
                                             </td>
                                         </tr>
                                     @endforeach
+                                    <tr>
+                                        <th colspan="3">
+                                            <span class="badge badge-success font-weight-bold">Your Total Mask : <span class="badge badge-light badge-pill">{{$marks-$negMarks}}</span></span>
+                                        </th>
+                                    </tr>
                                     </tbody>
                                 </table>
+                                <a href="{{url(''.'/'.$slug)}}" class="badge badge-success font-weight-bold font-size-h4"> Play Next Level</a>
+
                             </div>
                         </div>
                     </div>

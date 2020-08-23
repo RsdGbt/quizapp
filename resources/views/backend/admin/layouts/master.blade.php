@@ -195,7 +195,7 @@
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn btn-dual" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-fw fa-info-circle"></i>
-                            <span class="badge badge-danger badge-pill">1</span>
+                            {{--<span class="badge badge-danger badge-pill">0</span>--}}
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="page-header-notifications-dropdown">
                             <div class="bg-primary-darker rounded-top font-w600 text-white text-center p-3">
@@ -203,19 +203,19 @@
 
                             </div>
                             <ul class="nav-items my-2">
-                                <a href="#" class="badge badge-light" style="float: right;"><i class="fa fa-check"></i> Mark all as Read</a>
-                                <div style="clear: both;"></div>
-                                <li>
-                                    <a class="text-dark media py-2" href="3">
-                                        <div class="mx-3">
-                                            <i class="fa fa-fw fa-check-circle text-warning"></i>
-                                        </div>
-                                        <div class="media-body font-size-sm pr-2">
-                                            <div class="font-w600">Someone message you</div>
-                                            <div class="text-muted font-italic">3 min ago</div>
-                                        </div>
-                                    </a>
-                                </li>
+                                {{--<a href="#" class="badge badge-light" style="float: right;"><i class="fa fa-check"></i> Mark all as Read</a>--}}
+                                {{--<div style="clear: both;"></div>--}}
+                                {{--<li>--}}
+                                    {{--<a class="text-dark media py-2" href="3">--}}
+                                        {{--<div class="mx-3">--}}
+                                            {{--<i class="fa fa-fw fa-check-circle text-warning"></i>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="media-body font-size-sm pr-2">--}}
+                                            {{--<div class="font-w600">Someone message you</div>--}}
+                                            {{--<div class="text-muted font-italic">3 min ago</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
                             </ul>
                             <div class="p-2 border-top">
                                 <a class="btn btn-light btn-block text-center" href="{{url('admin/notifications?status=unseen')}}">

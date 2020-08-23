@@ -83,7 +83,7 @@ class GameController extends Controller
         $questions = $category->questions()->where('level_id',$level->id)->where('status','public')->paginate(1);
         $questionIds = $category->questions()->where('level_id',$level->id)->select('question_id');
         $levelQustions = $category->questions()->where('level_id',$level->id)->get();
-        return view('frontend.game.show',compact('title','heading','category','level','user','questions','questionIds','levelQustions'));
+        return view('frontend.game.show',compact('title','heading','category','level','user','questions','questionIds','levelQustions','slug'));
     }
     public function store(Request $request, $slug,$id){
         $this->validate($request,[
@@ -96,6 +96,13 @@ class GameController extends Controller
         }
         $answer = Answer::find($request->answer);
         if ($existAnswer = UserAnswer::where('user_id',$user->id)->where('question_id',$request->question_id)->first()){
+//            if ($request->page){
+//                $pageNo = $request->page+1;
+//            }else{
+//                $pageNo = 2;
+//            }
+//
+//            return redirect(''.'/'.$slug.'/'.$id.'?page='.$pageNo)->with('error','Already submitted answer for this question !');
             $existAnswer->answer_id = $answer->id;
             $existAnswer->status = $answer->status;
             $existAnswer->save();
@@ -112,6 +119,6 @@ class GameController extends Controller
         }else{
             $pageId = 2;
         }
-        return redirect(''.'/'.$slug.'/'.$id.'/?page='.$pageId)->with('success','Success !');
+        return redirect(''.'/'.$slug.'/'.$id.'?page='.$pageId)->with('success','Success !');
     }
 }

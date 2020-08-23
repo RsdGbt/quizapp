@@ -18,9 +18,9 @@
                             <div class="row">
                                 <div class="col-sm-12 form-group">
                                     <label for="">New Question <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" required placeholder="Type New Level Name">
+                                    <input type="text" name="name" value="{{old('name')}}" class="form-control" required placeholder="Type New Level Name">
                                 </div>
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-12 form-group">
                                     <label for="">Choose Categories <span class="text-danger">*</span></label>
                                     <select name="category_id[]" multiple id="category_id" class="js-select2 form-control" required>
                                         <option value="">--Choose--</option>
@@ -29,14 +29,22 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-4 form-group">
                                     <label for="">Choose Level <span class="text-danger">*</span></label>
                                     <select name="level_id" id="level_id" class="js-select2 form-control" required>
                                         <option value="">--Choose--</option>
                                         @foreach($levels as $level)
-                                            <option value="{{$level->id}}">{{$level->name}}</option>
+                                            <option value="{{$level->id}}" @if(old('level_id')==$level->id) selected @endif>{{$level->name}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label for="">Marks <span class="text-danger">*</span></label>
+                                    <input type="number" name="marks" class="form-control" value="{{old('marks')}}" required>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label for="">Negative Marks</label>
+                                    <input type="number" name="neg_marks" class="form-control" value="{{old('neg_marks')}}" placeholder="Left Blank for Non-Negative Marks">
                                 </div>
                             </div>
                         </div>
